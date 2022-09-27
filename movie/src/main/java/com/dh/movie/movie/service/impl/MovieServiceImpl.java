@@ -4,6 +4,7 @@ import com.dh.movie.movie.dto.MovieDTO;
 import com.dh.movie.movie.entity.Movie;
 import com.dh.movie.movie.repository.MovieRepository;
 import com.dh.movie.movie.service.MovieService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +18,17 @@ public class MovieServiceImpl implements MovieService {
     private MovieRepository repository;
 
 
+    private RabbitTemplate rabbitTemplate;
+
     @Override
     public MovieDTO salvar(MovieDTO dto) {
         Movie entity = new Movie();
         entity.setName(dto.getName());
         entity.setUrlStream(dto.getUrlStream());
         entity.setGenre(dto.getGenre());
-        return entityToDTO(repository.save(entity));
+        Movie movieSaved = repository.save(entity);
+        rabbitTemplate.convertAndSend("movieQueue",entity);
+        return entityToDTO(movieSaved);
 
     }
 

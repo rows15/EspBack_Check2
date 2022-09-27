@@ -19,7 +19,7 @@ public class MovieController {
     @Autowired
     private MovieService service;
 
-    @RequestMapping(value = "/salvar", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     private ResponseEntity<MovieDTO> salvar(@RequestBody MovieDTO dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.salvar(dto));
     }
