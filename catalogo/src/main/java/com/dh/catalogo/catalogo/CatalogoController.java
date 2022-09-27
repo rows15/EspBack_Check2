@@ -2,6 +2,7 @@ package com.dh.catalogo.catalogo;
 
 import com.dh.catalogo.catalogo.service.impl.CatalogoServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

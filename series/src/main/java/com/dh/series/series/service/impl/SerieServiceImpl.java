@@ -20,9 +20,9 @@ public class SerieServiceImpl implements SerieService {
         entity.setName(dto.getName());
         entity.setUrlStream(dto.getUrlStream());
         entity.setGenre(dto.getGenre());
-        Serie movieSaved = repository.save(entity);
-        rabbitTemplate.convertAndSend("movieQueue",entity);
-        return entityToDTO(movieSaved);
+        Serie serieSaved = repository.save(entity);
+        rabbitTemplate.convertAndSend("serieQueue",entity);
+        return entityToDTO(serieSaved);
     }
     private SerieDTO entityToDTO(Serie entity){
         return SerieDTO.builder().name(entity.getName()).id(entity.getId()).genre(entity.getGenre()).urlStream(entity.getUrlStream()).build();
